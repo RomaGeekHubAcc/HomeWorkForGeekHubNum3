@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MyCell.h
 //  HWforgeekHub3
 //
 //  Created by Roma on 27.10.13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MyCell : UITableViewCell
 
 @end
