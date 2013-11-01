@@ -7,6 +7,8 @@
 //
 
 #import "DetailVC.h"
+#import "ContentList.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface DetailVC ()
 
@@ -26,7 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    _titleLabel.text = _list.title;
+    _descriptionLabel.text = _list.description;
+    _updatedLabel.text = _list.updated;
+    [_imageView setImageWithURL:_list.urlOfImage];
 }
 
 - (void)didReceiveMemoryWarning
