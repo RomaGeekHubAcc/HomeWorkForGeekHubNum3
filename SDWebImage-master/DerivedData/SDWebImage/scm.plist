@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FoundWorkingCopyPaths</key>
+	<array>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3</string>
+	</array>
+	<key>LastWorkingCopyScanDate</key>
+	<date>2013-11-01T16:44:29Z</date>
+	<key>MissingFilePaths</key>
+	<array>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/webpi.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/upsampling_sse2.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/quant_levels_dec.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/buffer.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/io.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/vp8li.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/frame.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/dec.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/utils.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/build/Debug-iphoneos/libSDWebImage.a</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/build/Debug-iphoneos/libSDWebImage+WebP.a</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/yuv.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/lossless.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/alpha.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/filters.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/upsampling.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/thread.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/rescaler.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/dsp.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/cpu.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/webp.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/utils.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/filters.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/huffman.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/lossless.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/build/Debug-iphoneos/libSDWebImage+MKAnnotation.a</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/alpha_processing.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/color_cache.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/vp8.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/alpha_processing.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/rescaler.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/yuv.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dsp/dec_sse2.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/color_cache.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/bit_reader.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/thread.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/huffman.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/bit_reader.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/quant.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/vp8i.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/vp8l.c</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/utils/quant_levels_dec.h</string>
+		<string>/Users/admin/Documents/iOS_progs/HWforgeekHub3/SDWebImage-master/Vendors/libwebp/src/dec/tree.c</string>
+	</array>
+	<key>Version</key>
+	<integer>4</integer>
+</dict>
+</plist>

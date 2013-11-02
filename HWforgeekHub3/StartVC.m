@@ -98,10 +98,9 @@
     cell.titleOutlet.text = list.title;
     cell.updatedOutlet.text = list.updated;
     
-    
     NSURL *url = list.urlOfImage;
     [cell.imgView setImageWithURL:url];
-    NSLog(@"--- list.url- %@", list.urlOfImage);
+
     
     return cell;
 }
