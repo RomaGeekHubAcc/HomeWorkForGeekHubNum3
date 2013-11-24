@@ -6,25 +6,17 @@
 //  Copyright (c) 2013 Roma. All rights reserved.
 //
 
-#define PODCAST_ADRESS @"https://itunes.apple.com/ua/rss/toppodcasts/limit=50/genre=1304/explicit=true/xml"
-#define PODCASTS_COMEDY @"https://itunes.apple.com/ua/rss/toppodcasts/limit=25/genre=1303/xml"
-
-// теги:
-#define ENTRY @"entry"
-#define TITLE @"title"
-#define UPDATED @"updated"
-#define SUMMARY @"summary"
-#define ICON_IMAGE @"im:image"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Reachability.h"
 #import "StartVC.h"
 #import "MyCell.h"
-#import "ContentList.h"
+#import "PodcastAsset.h"
 #import "DetailVC.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <CoreFoundation/CoreFoundation.h>
 #import "XMLReader.h"
+#import "Defines.h"
 
 @interface StartVC ()
 
@@ -32,6 +24,7 @@
 
 @implementation StartVC
 
+#pragma mark -viewController
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -39,6 +32,12 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewDidLoad
@@ -51,7 +50,7 @@
     _activityIndicator.hidden = YES;
     _tableView.backgroundColor = [UIColor lightGrayColor];
     if (!_theList) {
-        _theList = [[ContentList alloc]init];
+        _theList = [[PodcastAsset alloc]init];
     }
     
     if (!_myArray) {
@@ -93,10 +92,10 @@
         cell = [[MyCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
-    ContentList *list = [_myArray objectAtIndex:indexPath.row];
+    PodcastAsset *list = [_myArray objectAtIndex:indexPath.row];
     
     cell.titleOutlet.text = list.title;
-    cell.updatedOutlet.text = list.updated;
+    cell.updatedOutlet.text = list.pubDate;
     
     NSURL *url = list.urlOfImage;
     [cell.imgView setImageWithURL:url];
@@ -144,7 +143,9 @@
     _activityIndicator. hidden = NO;
     [_activityIndicator startAnimating];
     [self.view bringSubviewToFront:_activityIndicator];
-    [self loadDataFromPath:PODCAST_ADRESS /*_textField.text*/ ];
+    
+#warning тут я задаю адресу, за якою завантажувати подкаст
+    [self loadDataFromPath:PODCASTS_OTHER];
     
     return YES;
 }
@@ -178,21 +179,21 @@
     XMLReader *reader = [[XMLReader alloc]init];
     _myArray = [reader parseXMLwithData:_rssData];
     
-    NSMutableArray *testAr = [reader getArrayWithURLs];
-    
-    if (testAr.count > 0 ) {
-        for (int i = 1; i < testAr.count+1; i++) {
-            if (i%3 == 0) {
-                [arrWithURLs addObject:[testAr objectAtIndex:i-1]];
-            }
-        }
-    }
-    for (int i = 0; i < _myArray.count; i++) {
-        ContentList * l = [_myArray objectAtIndex:i];
-        l.urlOfImage = [arrWithURLs objectAtIndex:i];
-        [_myArray replaceObjectAtIndex:i withObject:l];
-    }
-    
+//    NSMutableArray *testAr = [reader getArrayWithURLs];
+//    
+//    if (testAr.count > 0 ) {
+//        for (int i = 1; i < testAr.count+1; i++) {
+//            if (i%3 == 0) {
+//                [arrWithURLs addObject:[testAr objectAtIndex:i-1]];
+//            }
+//        }
+//    }
+//    for (int i = 0; i < _myArray.count; i++) {
+//        PodcastAsset * pA = [_myArray objectAtIndex:i];
+//        pA.urlOfImage = [arrWithURLs objectAtIndex:i];
+//        [_myArray replaceObjectAtIndex:i withObject:pA];
+//    }
+//    
     if (_myArray.count > 0) {
         _tableView.hidden = NO;
         [_activityIndicator stopAnimating];

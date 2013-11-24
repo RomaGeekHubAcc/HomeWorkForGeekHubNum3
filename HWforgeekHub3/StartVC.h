@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ContentList;
+@class PodcastAsset;
 
 @interface StartVC : UIViewController <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, NSXMLParserDelegate>
 {
@@ -16,7 +16,7 @@
     NSMutableArray *arrWithURLs;
 }
 
-@property (nonatomic) ContentList *theList;
+@property (nonatomic) PodcastAsset *theList;
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

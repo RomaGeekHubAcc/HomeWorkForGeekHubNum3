@@ -7,23 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ContentList.h"
+#import "PodcastAsset.h"
 
 @interface XMLReader : NSObject <NSXMLParserDelegate>
 {
     int countTegsWithImage;
     int countTegsIm;
+    BOOL flagAudioTrack;
+    BOOL flagImage;
 }
 
-@property (nonatomic) ContentList *theList;
+@property (nonatomic) PodcastAsset *theList;
 
 @property (nonatomic, retain) NSString * currentElement;
 @property (nonatomic) NSMutableString *currentTitle;
-@property (nonatomic) NSMutableString *currentUpdated;
+@property (nonatomic) NSMutableString *currentPubDate;
 @property (nonatomic) NSMutableString *currentDescription;
-@property (nonatomic) NSString *currentBigImageStr;
+@property (nonatomic) NSMutableString *currentImageStr;
 @property (nonatomic) NSMutableArray *arrayWithContentLists;
 @property (nonatomic) NSURL *currentURL;
+@property (nonatomic) NSMutableString *currentAudioTrack;
+@property (nonatomic) NSMutableString *currentDuration;
+@property (nonatomic) NSMutableString *currentAuthor;
 
 @property (nonatomic) NSMutableArray *arrayWithURLs;
 

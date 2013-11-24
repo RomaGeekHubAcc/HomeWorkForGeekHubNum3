@@ -6,18 +6,10 @@
 //  Copyright (c) 2013 Roma. All rights reserved.
 //
 
-#define PODCAST_ADRESS @"https://itunes.apple.com/ua/rss/toppodcasts/limit=50/genre=1304/explicit=true/xml"
-#define PODCASTS_COMEDY @"https://itunes.apple.com/ua/rss/toppodcasts/limit=25/genre=1303/xml"
 
-// теги:
-#define ENTRY @"entry"
-#define TITLE @"title"
-#define UPDATED @"updated"
-#define SUMMARY @"summary"
-#define ICON_IMAGE @"im:image"
-
+#import "Defines.h"
 #import "XMLReader.h"
-#import "ContentList.h"
+#import "PodcastAsset.h"
 
 @implementation XMLReader
 
@@ -73,39 +65,60 @@
             attributes:(NSDictionary *)attributeDict  {
     
     _currentElement = elementName;
-    if ([elementName isEqualToString:ENTRY]) {
+    if ([elementName isEqualToString:ITEM_]) {
         //
+    }
+    if ([elementName isEqual:AUDIO_TRACK_] && !flagAudioTrack)
+    {
+        flagAudioTrack = YES;
+        _currentAudioTrack = [attributeDict objectForKey:@"url"];
+    }
+    if ([elementName isEqualToString:IMAGE_] && !flagImage) {
+        flagImage = YES;
+        _currentImageStr = [attributeDict objectForKey:@"href"];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    if ([_currentElement isEqualToString:TITLE]) {
+    if ([_currentElement isEqualToString:TITLE_]) {
         if (!_currentTitle) {
             _currentTitle = [[NSMutableString alloc]init];
         }
 		[_currentTitle appendString:string];
 	}
-    else if ([_currentElement isEqualToString:UPDATED]) {
-        if (!_currentUpdated) {
-            _currentUpdated = [[NSMutableString alloc]init];
+    else if ([_currentElement isEqualToString:PUBDATE_]) {
+        if (!_currentPubDate) {
+            _currentPubDate = [[NSMutableString alloc]init];
         }
-		[_currentUpdated appendString:string];
+		[_currentPubDate appendString:string];
     }
-    else if ([_currentElement isEqualToString:SUMMARY]) {
+    else if ([_currentElement isEqualToString:DESCRIPTION_]) {
         if (!_currentDescription) {
             _currentDescription = [[NSMutableString alloc]init];
         }
         [_currentDescription appendString:string];
     }
-    else if ([_currentElement isEqualToString:ICON_IMAGE]) {
-        _currentURL = [NSURL URLWithString:string];
-        if (_currentBigImageStr) {
-            _currentBigImageStr = [[NSMutableString alloc]init];
+//    else if ([_currentElement isEqualToString:IMAGE_]) {
+//        _currentURL = [NSURL URLWithString:string];
+//        if (!_currentImageStr) {
+//            _currentImageStr =[[NSMutableString alloc]init];
+//            [_currentImageStr appendString:string];
+//        }
+//        if (_currentURL) {
+//            [_arrayWithURLs addObject:_currentURL];
+//        }
+//    }
+    else if ([_currentElement isEqualToString:AUTHOR_]) {
+        if (!_currentAuthor) {
+            _currentAuthor = [[NSMutableString alloc]init];
         }
-        _currentBigImageStr = [NSString stringWithString:string];
-        if (_currentURL) {
-            [_arrayWithURLs addObject:_currentURL];
+        [_currentAuthor appendString:string];
+    }
+    else if ([_currentElement isEqualToString:DURATION_]) {
+        if (!_currentDuration) {
+            _currentDuration = [[NSMutableString alloc]init];
         }
+        [_currentDuration appendString:string];
     }
 }
 
@@ -114,14 +127,17 @@
                 namespaceURI:(NSString *)namespaceURI
                 qualifiedName:(NSString *)qName {
     
-    if ([elementName isEqualToString:ENTRY]) {
-        
-        ContentList *contentList = [[ContentList alloc]init];
+    if ([elementName isEqualToString:ITEM_]) {
+ 
+        PodcastAsset *contentList = [[PodcastAsset alloc]init];
         contentList.title = _currentTitle;
-        contentList.updated = _currentUpdated;
+        contentList.pubDate = _currentPubDate;
         contentList.description = _currentDescription;
-        contentList.bigImageStr = _currentBigImageStr;
+        contentList.imageStr = _currentImageStr;
         contentList.urlOfImage = _currentURL;
+        contentList.durationPodcast = _currentDuration;
+        contentList.audioFilePath = _currentAudioTrack;
+        
         
         if (!_arrayWithContentLists) {
             _arrayWithContentLists = [[NSMutableArray alloc]init];
@@ -129,11 +145,16 @@
         [_arrayWithContentLists addObject:contentList];
 
         _currentElement = nil;
-        _currentBigImageStr = nil;
+        _currentImageStr = nil;
         _currentTitle = nil;
         _currentDescription = nil;
-        _currentUpdated = nil;
+        _currentPubDate = nil;
         _currentURL = nil;
+        _currentDuration = nil;
+        _currentAudioTrack = nil;
+        
+        flagAudioTrack = NO;
+        flagImage = NO;
     }
 }
 
