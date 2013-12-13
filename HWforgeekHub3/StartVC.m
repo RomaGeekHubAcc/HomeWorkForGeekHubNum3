@@ -11,12 +11,13 @@
 #import "Reachability.h"
 #import "StartVC.h"
 #import "MyCell.h"
-#import "PodcastAsset.h"
+#import "PodcastItem.h"
 #import "DetailVC.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <CoreFoundation/CoreFoundation.h>
 #import "XMLReader.h"
 #import "Defines.h"
+#import "Podcast.h"
 
 @interface StartVC ()
 
@@ -44,20 +45,19 @@
 {
     [super viewDidLoad];
 	
-    arrWithURLs = [[NSMutableArray alloc]init];
     countTegsWithImage = 0;
     _tableView.hidden = YES;
     _activityIndicator.hidden = YES;
     _tableView.backgroundColor = [UIColor lightGrayColor];
-    if (!_theList) {
-        _theList = [[PodcastAsset alloc]init];
-    }
     
-    if (!_myArray) {
-        _myArray = [[NSMutableArray alloc]init];
-    }
+    _podcast = [[Podcast alloc]init];
     
-    _urlPodcast.text = PODCASTS_COMEDY;
+    _labelUrlPodcasts1.text = @"Podcasts about automobiles";
+    _labelUrlPodcasts2.text = @"Podcasts about memories";
+    _labelUrlPodcasts3.text = @"Podcasts about sport";
+    _labelUrlPodcasts1.userInteractionEnabled = YES;
+    _labelUrlPodcasts2.userInteractionEnabled = YES;
+    _labelUrlPodcasts3.userInteractionEnabled = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +81,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _myArray.count;
+    return _podcast.arrWithURLs.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,12 +92,12 @@
         cell = [[MyCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
-    PodcastAsset *list = [_myArray objectAtIndex:indexPath.row];
+    PodcastItem *podcastItem = [_podcast.arrWithURLs objectAtIndex:indexPath.row];
     
-    cell.titleOutlet.text = list.title;
-    cell.updatedOutlet.text = list.pubDate;
+    cell.titleOutlet.text = podcastItem.title;
+    cell.updatedOutlet.text = podcastItem.pubDate;
     
-    NSURL *url = list.urlOfImage;
+    NSURL *url = [NSURL URLWithString:podcastItem.imageStr];
     [cell.imgView setImageWithURL:url];
 
     
@@ -109,7 +109,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailVC *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailVC"];
-    detailVC.list = [_myArray objectAtIndex:indexPath.row];
+    detailVC.list = [_podcast.arrWithURLs objectAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }
@@ -128,7 +128,7 @@
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    _textFieldContent = _textField.text;
+    textFieldContent = _textField.text;
     
     BOOL netStatus = [StartVC networkStatus];
     NSLog(@"- Network Status - %d", netStatus);
@@ -145,7 +145,9 @@
     [self.view bringSubviewToFront:_activityIndicator];
     
 #warning тут я задаю адресу, за якою завантажувати подкаст
-    [self loadDataFromPath:PODCASTS_OTHER];
+    [self loadDataFromPath:_textField.text];
+    
+    [self hideLabelsWithPodcastName];
     
     return YES;
 }
@@ -177,29 +179,15 @@
     NSString *result = [[NSString alloc] initWithData:_rssData encoding:NSUTF8StringEncoding];
     NSLog(@"-----Result - %@",result);
     XMLReader *reader = [[XMLReader alloc]init];
-    _myArray = [reader parseXMLwithData:_rssData];
-    
-//    NSMutableArray *testAr = [reader getArrayWithURLs];
-//    
-//    if (testAr.count > 0 ) {
-//        for (int i = 1; i < testAr.count+1; i++) {
-//            if (i%3 == 0) {
-//                [arrWithURLs addObject:[testAr objectAtIndex:i-1]];
-//            }
-//        }
-//    }
-//    for (int i = 0; i < _myArray.count; i++) {
-//        PodcastAsset * pA = [_myArray objectAtIndex:i];
-//        pA.urlOfImage = [arrWithURLs objectAtIndex:i];
-//        [_myArray replaceObjectAtIndex:i withObject:pA];
-//    }
-//    
-    if (_myArray.count > 0) {
+    _podcast.arrWithURLs = [reader parseXMLwithData:_rssData];
+       
+    if (_podcast.arrWithURLs.count > 0) {
+        
+        _tableView.frame = CGRectMake(0, 64, 320, screenSize.size.height - 64);
         _tableView.hidden = NO;
         [_activityIndicator stopAnimating];
         _activityIndicator.hidden = YES;
         [_tableView reloadData];
-        
     }
 }
 
@@ -218,9 +206,41 @@
                                                                    delegate:self];
     if (theConnection) {
          self.rssData = [NSMutableData data];
+        [self showActivityIndicator];
     }
     
 }
 
+- (void)hideLabelsWithPodcastName {
+    _labelUrlPodcasts1.hidden = YES;
+    _labelUrlPodcasts2.hidden = YES;
+    _labelUrlPodcasts3.hidden = YES;
+}
+
+- (void)showActivityIndicator {
+    _activityIndicator. hidden = NO;
+    [_activityIndicator startAnimating];
+    [self.view bringSubviewToFront:_activityIndicator];
+}
+
+#pragma mark - Actions
+
+- (IBAction)tapLabel1:(id)sender {
+    _textField.text = PODCASTS_OTHER;
+    [self loadDataFromPath:PODCASTS_OTHER];
+    [self hideLabelsWithPodcastName];
+}
+
+- (IBAction)tapLabel2:(id)sender {
+    _textField.text = PODCASTS_ABOUT_MEMORY;
+    [self loadDataFromPath:PODCASTS_ABOUT_MEMORY];
+    [self hideLabelsWithPodcastName];
+}
+
+- (IBAction)tapLabel3:(id)sender {
+    _textField.text = PODCASTS_SPORT;
+    [self loadDataFromPath:PODCASTS_SPORT];
+    [self hideLabelsWithPodcastName];
+}
 
 @end

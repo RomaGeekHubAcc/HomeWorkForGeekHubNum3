@@ -9,7 +9,7 @@
 
 #import "Defines.h"
 #import "XMLReader.h"
-#import "PodcastAsset.h"
+#import "Podcastitem.h"
 
 @implementation XMLReader
 
@@ -70,13 +70,16 @@
     }
     if ([elementName isEqual:AUDIO_TRACK_] && !flagAudioTrack)
     {
+        if (!_currentAudioTrackAr) _currentAudioTrackAr = [[NSMutableArray alloc]init];
         flagAudioTrack = YES;
-        _currentAudioTrack = [attributeDict objectForKey:@"url"];
+        [_currentAudioTrackAr addObject:[attributeDict objectForKey:@"url"]];
+//        _currentAudioTrackAr = [attributeDict objectForKey:@"url"];
     }
     if ([elementName isEqualToString:IMAGE_] && !flagImage) {
         flagImage = YES;
         _currentImageStr = [attributeDict objectForKey:@"href"];
     }
+    flagAudioTrack = NO;
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
@@ -129,15 +132,15 @@
     
     if ([elementName isEqualToString:ITEM_]) {
  
-        PodcastAsset *contentList = [[PodcastAsset alloc]init];
+        PodcastItem *contentList = [[PodcastItem alloc]init];
         contentList.title = _currentTitle;
         contentList.pubDate = _currentPubDate;
         contentList.description = _currentDescription;
         contentList.imageStr = _currentImageStr;
-        contentList.urlOfImage = _currentURL;
+//        contentList.urlOfImage = _currentURL;
         contentList.durationPodcast = _currentDuration;
-        contentList.audioFilePath = _currentAudioTrack;
-        
+        contentList.audioFilePathArray = _currentAudioTrackAr;
+        contentList.autor = _currentAuthor;
         
         if (!_arrayWithContentLists) {
             _arrayWithContentLists = [[NSMutableArray alloc]init];
@@ -151,7 +154,7 @@
         _currentPubDate = nil;
         _currentURL = nil;
         _currentDuration = nil;
-        _currentAudioTrack = nil;
+        _currentAudioTrackAr = nil;
         
         flagAudioTrack = NO;
         flagImage = NO;

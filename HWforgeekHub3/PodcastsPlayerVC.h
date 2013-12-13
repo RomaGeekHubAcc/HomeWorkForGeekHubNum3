@@ -7,11 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-@class PodcastAsset;
+#import <AVFoundation/AVFoundation.h>
+@class PodcastItem;
 
-@interface PodcastsPlayerVC : UIViewController
+@interface PodcastsPlayerVC : UIViewController 
 {
     UIImage *image;
+    
+    AVAudioPlayer *avPlayer;
+    AVPlayer *player;
+    
+    NSData *audioData;
+    
+    NSTimer *timer;
+    float duration;
+    int podcastNumber;
     
     __weak IBOutlet UILabel *timingLabel;
     __weak IBOutlet UIImageView *podcastImageView;
@@ -25,14 +35,15 @@
     __weak IBOutlet UILabel *autorLabel;
 }
 
-@property (nonatomic) PodcastAsset *podcastAsset;
+@property (nonatomic) PodcastItem *podcastItem;
+@property (nonatomic) NSString *audioFileName;
 
 - (IBAction)slider:(id)sender;
 - (IBAction)back15secButton:(id)sender;
-- (IBAction)pauseButton:(id)sender;
+- (IBAction)playPauseButton:(id)sender;
 - (IBAction)nextPodcastButton:(id)sender;
 
 
-@property (nonatomic) PodcastAsset *pAsset;
+//@property (nonatomic) PodcastItem *pAsset;
 
 @end

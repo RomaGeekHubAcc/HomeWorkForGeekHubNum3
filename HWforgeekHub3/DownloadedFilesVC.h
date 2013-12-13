@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DownloadedFilesVC : UIViewController
+@interface DownloadedFilesVC : UIViewController <UIAlertViewDelegate>
+{
+    __weak IBOutlet UIScrollView *scrollView;
+    __weak IBOutlet UIView *viewOverScrollView;
+    
+    NSArray *audiotrackNamesArray;
+    NSMutableArray *arrayLabelsButtons;
+    
+    UIAlertView *alertView;
+    int butDeleteTag;
+}
 
 @end

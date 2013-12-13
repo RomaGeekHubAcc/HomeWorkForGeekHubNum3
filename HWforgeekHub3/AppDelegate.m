@@ -10,9 +10,17 @@
 
 @implementation AppDelegate
 
+-(void)setupAppearance {
+    UIImage *minImage = [[UIImage imageNamed:@"sliderMin.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 280, 0, 0)];
+    UIImage *maxImage = [[UIImage imageNamed:@"sliderMaxVal.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9, 5, 7, 5)];
+    
+    [[UISlider appearance] setMaximumTrackImage:maxImage forState:UIControlStateNormal];
+    [[UISlider appearance] setMinimumTrackImage:minImage forState:UIControlStateNormal];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+//    [self setupAppearance];
     return YES;
 }
 							

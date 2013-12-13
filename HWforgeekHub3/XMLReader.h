@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PodcastAsset.h"
+#import "PodcastItem.h"
 
 @interface XMLReader : NSObject <NSXMLParserDelegate>
 {
@@ -17,7 +17,7 @@
     BOOL flagImage;
 }
 
-@property (nonatomic) PodcastAsset *theList;
+@property (nonatomic) PodcastItem *theList;
 
 @property (nonatomic, retain) NSString * currentElement;
 @property (nonatomic) NSMutableString *currentTitle;
@@ -26,7 +26,7 @@
 @property (nonatomic) NSMutableString *currentImageStr;
 @property (nonatomic) NSMutableArray *arrayWithContentLists;
 @property (nonatomic) NSURL *currentURL;
-@property (nonatomic) NSMutableString *currentAudioTrack;
+@property (nonatomic) NSMutableArray *currentAudioTrackAr;
 @property (nonatomic) NSMutableString *currentDuration;
 @property (nonatomic) NSMutableString *currentAuthor;
 
