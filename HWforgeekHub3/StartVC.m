@@ -81,6 +81,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"tableView.tag = %d", tableView.tag);
     return _podcast.arrWithURLs.count;
 }
 

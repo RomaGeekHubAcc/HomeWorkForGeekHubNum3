@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DataBaseManager;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    DataBaseManager *dbManager;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
